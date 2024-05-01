@@ -40,4 +40,8 @@
 --              and DonableItem.Id = Donation.DonableItemId
 --          where Donation.NGOUserId = 2
 
+--Insert INTO NGOUser
+   --(Id, FirstName,LastName,Email, Age, Gender, Password, RegisteredDate)
+--Values (5,'Asude','Doğan', 'asude@ngo.com', 19,0, '' ,'2024-05-03 09:57:01')
 
+--select * from NGOUser
