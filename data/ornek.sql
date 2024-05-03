@@ -44,4 +44,13 @@
    --(Id, FirstName,LastName,Email, Age, Gender, Password, RegisteredDate)
 --Values (5,'Asude','Doğan', 'asude@ngo.com', 19,0, '' ,'2024-05-03 09:57:01')
 
+--Insert INTO NGOUser
+  -- (Id, FirstName,LastName,Email, Age, Gender, Password, RegisteredDate)
+--Values (5,'İrem Sena','Alpak', 'ırem@ngo.com', 21,0, '' ,'2024-05-03 07:57:01')
+
+
+--Delete from NGOUser where Id = 8
+
 --select * from NGOUser
+
+
