@@ -1,0 +1,101 @@
+﻿{
+  "CodeGenerationMode": 2,
+  "ContextClassName": "App_Data/NGO.sqlite",
+  "ContextNamespace": null,
+  "FilterSchemas": false,
+  "IncludeConnectionString": true,
+  "ModelNamespace": null,
+  "OutputContextPath": null,
+  "OutputPath": "DBModels",
+  "PreserveCasingWithRegex": true,
+  "ProjectRootNamespace": "NGOAppMVC",
+  "Schemas": null,
+  "SelectedHandlebarsLanguage": 2,
+  "SelectedToBeGenerated": 0,
+  "T4TemplatePath": null,
+  "Tables": [
+    {
+      "Name": "Donation",
+      "ObjectType": 0
+    },
+    {
+      "Name": "Indigent",
+      "ObjectType": 0
+    },
+    {
+      "Name": "IndigentDependents",
+      "ObjectType": 0
+    },
+    {
+      "Name": "lkb_DependentRelation",
+      "ObjectType": 0
+    },
+    {
+      "Name": "lkp_ApprovementStatus",
+      "ObjectType": 0
+    },
+    {
+      "Name": "lkp_DonableItem",
+      "ObjectType": 0
+    },
+    {
+      "Name": "lkp_EducationalStatus",
+      "ObjectType": 0
+    },
+    {
+      "Name": "lkp_EmploymentStatus",
+      "ObjectType": 0
+    },
+    {
+      "Name": "lkp_Profession",
+      "ObjectType": 0
+    },
+    {
+      "Name": "lkp_Regions",
+      "ObjectType": 0
+    },
+    {
+      "Name": "lkp_Role",
+      "ObjectType": 0
+    },
+    {
+      "Name": "NGOUser",
+      "ObjectType": 0
+    },
+    {
+      "Name": "NGOUserRoles",
+      "ObjectType": 0
+    },
+    {
+      "Name": "Volunteer",
+      "ObjectType": 0
+    },
+    {
+      "Name": "WarehouseAssets",
+      "ObjectType": 0
+    }
+  ],
+  "UiHint": null,
+  "UncountableWords": null,
+  "UseBoolPropertiesWithoutDefaultSql": false,
+  "UseDatabaseNames": false,
+  "UseDateOnlyTimeOnly": false,
+  "UseDbContextSplitting": false,
+  "UseDecimalDataAnnotationForSprocResult": true,
+  "UseFluentApiOnly": true,
+  "UseHandleBars": false,
+  "UseHierarchyId": false,
+  "UseInflector": false,
+  "UseLegacyPluralizer": false,
+  "UseManyToManyEntity": false,
+  "UseNoDefaultConstructor": false,
+  "UseNoNavigations": false,
+  "UseNoObjectFilter": false,
+  "UseNodaTime": false,
+  "UseNullableReferences": false,
+  "UsePrefixNavigationNaming": false,
+  "UseSchemaFolders": false,
+  "UseSchemaNamespaces": false,
+  "UseSpatial": false,
+  "UseT4": false
+}

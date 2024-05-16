@@ -1,0 +1,354 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Registration Page</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/adminlte/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition register-page">
+    <div class="register-box" style="width: 1024px">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <img src="~/ngoicon.png" style="height: 150px;" />
+                <br />
+                <br />
+                <a class="h5">Aid Operations Management System </a>
+            </div>
+            <p class="login-box-msg">Register a new membership</p>
+
+            <form action="~/adminlte/index.html" method="post">
+                <div class="card-body"> 
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">User Info</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" style="margin-left: 5px; margin-top: 10px;">
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="input-group mb-3" style="margin-right: 1rem;">
+                                    <input type="text" class="form-control" placeholder="First Name">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3" style="margin-right: 1rem;">
+                                    <input type="text" class="form-control" placeholder="Last Name">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3" style="margin-right: 1rem;">
+                                    <input type="password" class="form-control" placeholder="Password">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="input-group mb-3" style="margin-right: 1rem;">
+                                    <input type="email" class="form-control" placeholder="Email">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-envelope"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="input-group mb-3" style="margin-right: 1rem;">
+                                    <input type="text" class="form-control" placeholder="Age">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-birthday-cake"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3" style="margin-right: 1rem;">
+                                    <input type="password" class="form-control" placeholder="Retype password">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-lock"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="input-group mb-3" style="margin-right: 1rem;">
+                                    <div class="custom-control custom-radio" style="margin-right: 1rem;">
+                                        <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">
+                                        <label for="customRadio1" class="custom-control-label">Male</label>
+                                    </div>
+                                    <div class="custom-control custom-radio" style="margin-right: 1rem;">
+                                        <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked="">
+                                        <label for="customRadio2" class="custom-control-label">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                </div>
+                    <br />
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Volunteer Info</h3>
+                        </div>
+                        <div class="card-body">
+                        <div class="row" style="margin-left: 5px; margin-top: 10px;">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-fax"></span>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Profession" list="cityname">
+                                        <datalist id="cityname">
+                                            <option value="Boston"></option>
+                                            <option value="Cambridge"></option>
+                                        </datalist>
+                                    </div>
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <input type="number" class="form-control" placeholder="Annual Income">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-solid fa-money-bill"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-globe"></span>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Geographical Region" list="cityname">
+                                        <datalist id="cityname">
+                                            <option value="Boston"></option>
+                                            <option value="Cambridge"></option>
+                                        </datalist>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <input type="number" class="form-control" placeholder="Available days count in a month">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-regular fa-calendar-day"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <input type="text" class="form-control" placeholder="Available hours count in a day">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-hourglass-half"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <div class="custom-control custom-radio" style="margin-right: 1rem;">
+                                            <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">
+                                            <label for="customRadio1" class="custom-control-label">I can handle my transportation</label>
+                                        </div>
+                                        <div class="custom-control custom-radio" style="margin-right: 1rem;">
+                                            <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked="">
+                                            <label for="customRadio2" class="custom-control-label">I need help for my transportation</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Indigent Person Info</h3>
+                        </div>
+                        <div class="card-body">
+                        <div class="row" style="margin-left: 5px; margin-top: 10px;">
+                            <div class="col-lg-4">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <input type="number" class="form-control" placeholder="Monthly Income">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-solid fa-money-bill"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                             </div>
+                             <div class="col-lg-4">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <input type="number" class="form-control" placeholder="Monthly Income">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-solid fa-money-bill"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                             </div>
+                             <div class="col-lg-4">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-bell"></span>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Requested Support" list="cityname">
+                                        <datalist id="cityname">
+                                            <option value="Boston"></option>
+                                            <option value="Cambridge"></option>
+                                        </datalist>
+                                    </div>
+                             </div>
+                        </div>
+                        </div>
+                        <div class="row" style="margin-left: 5px; margin-top: 10px;">
+                            <div class="col-lg-2">
+                            <div class="input-group mb-3" style="margin-right: 1rem;">
+                                <input type="text" class="form-control" placeholder="First Name">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-lg-2">
+
+                            <div class="input-group mb-3" style="margin-right: 1rem;">
+                                <input type="text" class="form-control" placeholder="Last Name">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            
+                            <div class="col-lg-2">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-award"></span>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Educational Status" list="cityname">
+                                        <datalist id="cityname">
+                                            <option value="Boston"></option>
+                                            <option value="Cambridge"></option>
+                                        </datalist>
+                                    </div>
+                                    </div>
+                                <div class="col-lg-2">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-heart"></span>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Relation" list="cityname">
+                                        <datalist id="cityname">
+                                            <option value="Boston"></option>
+                                            <option value="Cambridge"></option>
+                                        </datalist>
+                                </div>
+                                </div>
+                            <div class="col-lg-2">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-briefcase"></span>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Employment Status" list="cityname">
+                                        <datalist id="cityname">
+                                            <option value="Boston"></option>
+                                            <option value="Cambridge"></option>
+                                        </datalist>
+                                    </div>
+                            </div>
+                            <div class="col-lg-1">
+                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                        <button type="submit" class="btn btn-primary btn-block">Add</button>
+                                    </div>
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                <div class="card">
+                    <div class="card-body">
+                    <div class="row">
+                    <div class="col-4">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                            <label for="agreeTerms">
+                                I agree to the <a href="#">terms</a>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                    </div>
+
+                </div>
+
+            </form>
+        
+
+            <a href="login.html" class="text-center">I already have a membership</a>
+
+            <!-- /.form-box -->
+        </div><!-- /.card -->
+    </div>
+    <!-- /.register-box -->
+    <!-- jQuery -->
+    <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/adminlte/dist/js/adminlte.min.js"></script>
+</body>
+</html>
+
