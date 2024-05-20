@@ -30,7 +30,8 @@
             </div>
             <p class="login-box-msg">Register a new membership</p>
 
-            <form action="~/adminlte/index.html" method="post">
+            <form id="register" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="card-body"> 
                 <div class="card card-primary">
                     <div class="card-header">
@@ -41,7 +42,7 @@
                         <div class="col-lg-4">
                             <div class="row">
                                 <div class="input-group mb-3" style="margin-right: 1rem;">
-                                    <input type="text" class="form-control" placeholder="First Name">
+                                    <input asp-for="Input.FirstName" class="form-control" placeholder="First Name" aria-required="true" />
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-user"></span>
@@ -49,16 +50,16 @@
                                     </div>
                                 </div>
                                 <div class="input-group mb-3" style="margin-right: 1rem;">
-                                    <input type="text" class="form-control" placeholder="Last Name">
-                                    <div class="input-group-append">
+                                            <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" aria-required="true" />
+                                            <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-user"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3" style="margin-right: 1rem;">
-                                    <input type="password" class="form-control" placeholder="Password">
-                                    <div class="input-group-append">
+                                            <input asp-for="Input.Password" class="form-control" placeholder="Password" aria-required="true" />
+                                            <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>
                                         </div>
@@ -69,8 +70,8 @@
                         <div class="col-lg-4">
                             <div class="row">
                                 <div class="input-group mb-3" style="margin-right: 1rem;">
-                                    <input type="email" class="form-control" placeholder="Email">
-                                    <div class="input-group-append">
+                                            <input asp-for="Input.Email" class="form-control" placeholder="Email" aria-required="true" />
+                                            <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-envelope"></span>
                                         </div>
@@ -78,16 +79,16 @@
 
                                 </div>
                                 <div class="input-group mb-3" style="margin-right: 1rem;">
-                                    <input type="text" class="form-control" placeholder="Age">
-                                    <div class="input-group-append">
+                                            <input asp-for="Input.Age" class="form-control" placeholder="Age" aria-required="true" />
+                                            <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-birthday-cake"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3" style="margin-right: 1rem;">
-                                    <input type="password" class="form-control" placeholder="Retype password">
-                                    <div class="input-group-append">
+                                            <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Retype password" aria-required="true" />
+                                            <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-lock"></span>
                                         </div>
@@ -100,13 +101,11 @@
                             <div class="row">
                                 <div class="input-group mb-3" style="margin-right: 1rem;">
                                     <div class="custom-control custom-radio" style="margin-right: 1rem;">
-                                        <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">
-                                        <label for="customRadio1" class="custom-control-label">Male</label>
-                                    </div>
+                                                <input type="radio" asp-for="Input.Gender" value="true" />Male<br />
+                                     </div>
                                     <div class="custom-control custom-radio" style="margin-right: 1rem;">
-                                        <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked="">
-                                        <label for="customRadio2" class="custom-control-label">Female</label>
-                                    </div>
+                                                <input type="radio" id="rbFeMale" name="Gender" value="false">Female</>
+                                            </div>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +325,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-2">
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                <button id="register-submit"  type="submit" class="btn btn-primary btn-block">Register</button>
                     </div>
                     <!-- /.col -->
                 </div>
