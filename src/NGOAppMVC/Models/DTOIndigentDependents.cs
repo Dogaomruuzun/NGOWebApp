@@ -10,5 +10,9 @@
         public long? EducationStatusId { get; set; }
         public long? DependentRelationId { get; set; }
 
+        public string EmploymentStatusName { get; set; }
+        public string EducationStatusName { get; set; }
+        public string DependentRelationName { get; set; }
+
     }
 }

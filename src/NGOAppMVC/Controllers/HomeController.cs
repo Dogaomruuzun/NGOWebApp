@@ -27,8 +27,12 @@ namespace NGOAppMVC.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(RegisterModel Model = null)
         {
+            if (Model != null)
+            {
+                return View(Model);
+            }
             return View();
         }
 
@@ -45,6 +49,7 @@ namespace NGOAppMVC.Controllers
             model.EducationList= new();   
             if (educationStatusListDB?.Count > 0)
             {
+                model.EducationList.Add(new SelectListItem { Text = "Education", Value = "0" });
                 foreach (var item in educationStatusListDB)
                 {
                     model.EducationList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
@@ -55,6 +60,7 @@ namespace NGOAppMVC.Controllers
             model.ProfessionList = new();
             if (professionListDB?.Count > 0)
             {
+                model.ProfessionList.Add(new SelectListItem { Text = "Profession", Value = "0" });
                 foreach (var item in professionListDB)
                 {
                     model.ProfessionList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString()});
@@ -65,6 +71,7 @@ namespace NGOAppMVC.Controllers
             model.GeographicalList = new();
             if (regionsDB?.Count > 0)
             {
+                model.GeographicalList.Add(new SelectListItem { Text = "Region", Value = "0" });
                 foreach (var item in regionsDB)
                 {
                     var geoName = item.City + " - " + item.District + " - " + item.Neighborhood;
@@ -76,6 +83,7 @@ namespace NGOAppMVC.Controllers
             model.RelationList = new();
             if (relationsDB?.Count > 0)
             {
+                model.RelationList.Add(new SelectListItem { Text = "Relation", Value = "0" });
                 foreach (var item in relationsDB)
                 {
                     model.RelationList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
@@ -86,11 +94,23 @@ namespace NGOAppMVC.Controllers
             model.EmploymentStatusList = new();
             if (EmploymentsDB?.Count > 0)
             {
+                model.EmploymentStatusList.Add(new SelectListItem { Text = "Employment", Value = "0" });
                 foreach (var item in EmploymentsDB)
                 {
                     model.EmploymentStatusList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
                 }
             }
+            var DonableItemsDB = _context.LkpDonableItem.ToList();
+            model.DonableItemList = new();
+            if (DonableItemsDB?.Count > 0)
+            {
+                model.DonableItemList.Add(new SelectListItem { Text = "Donable", Value = "0" });
+                foreach (var item in DonableItemsDB)
+                {
+                    model.DonableItemList.Add(new SelectListItem { Text = item.DonableTypeName, Value = item.Id.ToString() });
+                }
+            }
+
 
 
             return View(model);
@@ -181,6 +201,33 @@ namespace NGOAppMVC.Controllers
                 return View(Model);
             }
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult AddDependent(RegisterModel Model)
+        {
+            var newDependent = new DTOIndigentDependents
+            {
+                FirstName = Model.IndigentFirstName,
+                LastName = Model.IndigentLastName,
+                EducationStatusId = Model.IndigentEducationId,
+                EducationStatusName = _context.LkpEducationalStatus.Where(e => e.Id == Model.IndigentEducationId).Select(s => s.Name).FirstOrDefault(),
+
+                EmploymentStatusId = Model.IndigentEmploymentId,
+                EmploymentStatusName = _context.LkpEmploymentStatus.Where(e => e.Id == Model.IndigentEmploymentId).Select(s => s.Name).FirstOrDefault(),
+
+                DependentRelationId = Model.IndigentRelationId,
+                DependentRelationName = _context.LkbDependentRelation.Where(e => e.Id == Model.IndigentRelationId).Select(s => s.Name).FirstOrDefault()
+            };
+            if (Model.Dependents == null)
+            {
+                Model.Dependents = new();
+            }
+            Model.Dependents.Add(newDependent);
+
+            return View("Register",Model);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

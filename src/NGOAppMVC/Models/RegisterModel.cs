@@ -27,7 +27,7 @@ namespace NGOAppMVC.Models
 
         [Required]
         [Display(Name = "Gender")]
-        public Boolean? Gender { get; set; }
+        public bool? Gender { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -51,11 +51,19 @@ namespace NGOAppMVC.Models
         public long? VolunteerAvailableDaysCount { get; set; }
         [Range(0, 150, ErrorMessage = "Please enter valid number")]
         public long? VolunteerAvailableHoursCount { get; set; }
-        public Boolean? VolunteerCanHandleOwnTransportation { get; set; }
+        public bool? VolunteerCanHandleOwnTransportation { get; set; }
 
         public long IndigentMonthlyIncome { get; set; }
         public long? IndigentMonthlyExpenditures { get; set; }
         public long? IndigentRegionId { get; set; }
+        public long? IndigentRequestedDonableItemId { get; set; }
+
+        public string? IndigentFirstName { get; set; }
+        public string? IndigentLastName { get; set; }
+        public int? IndigentEducationId { get; set; }
+        public int? IndigentRelationId { get; set; }
+        public int? IndigentEmploymentId { get; set; }
+
 
         public List<DTOIndigentDependents> Dependents { get; set; }
         public List<SelectListItem> EducationList { get; set; }
@@ -63,6 +71,8 @@ namespace NGOAppMVC.Models
         public List<SelectListItem> GeographicalList { get; set; }
         public List<SelectListItem> RelationList { get; set; }
         public List<SelectListItem> EmploymentStatusList { get; set; }
+        public List<SelectListItem> DonableItemList { get; set; }
 
+        public bool IsModelComplated = true;
     }
 }
