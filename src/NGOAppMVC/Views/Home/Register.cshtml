@@ -1,4 +1,5 @@
-﻿@model RegisterModel
+﻿@using System.Text.Json
+@model RegisterModel
 @{
     ViewData["Title"] = "Register";
     Layout = "";
@@ -32,6 +33,7 @@
 
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @Html.HiddenFor(model => Model.Dependents)
                 <div class="card-body">
                     <div class="card card-primary">
                         <div class="card-header">
@@ -136,7 +138,7 @@
                                                 </div>
                                             </div>
                                             <select class="form-select form-control" asp-items="Model.ProfessionList" asp-for="VolunteerProfessionId"></select>
-                                         </div>
+                                        </div>
                                         <div class="input-group mb-3" style="margin-right: 1rem;">
                                             <input type="number" class="form-control" placeholder="Annual Income">
                                             <div class="input-group-append">
@@ -203,7 +205,7 @@
                             <div class="row" style="margin-left: 5px; margin-top: 10px;">
                                 <div class="col-lg-4">
                                     <div class="input-group mb-3" style="margin-right: 1rem;">
-                                        <input asp-for="@Model.IndigentMonthlyIncome" type="number"  class="form-control" placeholder="Monthly Income" />
+                                        <input asp-for="@Model.IndigentMonthlyIncome" type="number" class="form-control" placeholder="Monthly Income" />
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-solid fa-money-bill"></span>
@@ -250,122 +252,129 @@
                                 </div>
                                 <div class="card-body">
 
-                            <div class="row" style="margin-left: 5px; margin-top: 10px;">
-                                <div class="col-lg-2">
-                                    <div class="input-group mb-3" style="margin-right: 1rem;">
-                                                <input asp-for="@Model.IndigentFirstName" class="form-control" placeholder="First Name"  />
+                                    <div class="row" style="margin-left: 5px; margin-top: 10px;">
+                                        <div class="col-lg-2">
+                                            <div class="input-group mb-3" style="margin-right: 1rem;">
+                                                <input asp-for="@Model.IndigentFirstName" class="form-control" placeholder="First Name" />
                                                 <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-user"></span>
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-user"></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
+                                        <div class="col-lg-2">
 
-                                    <div class="input-group mb-3" style="margin-right: 1rem;">
+                                            <div class="input-group mb-3" style="margin-right: 1rem;">
                                                 <input asp-for="@Model.IndigentLastName" class="form-control" placeholder="Last Name" />
                                                 <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-user"></span>
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-user"></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-2">
-                                    <div class="input-group mb-3" style="margin-right: 1rem;">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-award"></span>
+                                        <div class="col-lg-2">
+                                            <div class="input-group mb-3" style="margin-right: 1rem;">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-award"></span>
+                                                    </div>
+                                                </div>
+                                                <select class="form-select form-control" asp-items="Model.EducationList" asp-for="IndigentEducationId"></select>
                                             </div>
                                         </div>
-                                        <select class="form-select form-control" asp-items="Model.EducationList" asp-for="IndigentEducationId"></select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="input-group mb-3" style="margin-right: 1rem;">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-heart"></span>
+                                        <div class="col-lg-2">
+                                            <div class="input-group mb-3" style="margin-right: 1rem;">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-heart"></span>
+                                                    </div>
+                                                </div>
+                                                <select class="form-select form-control" asp-items="Model.RelationList" asp-for="IndigentRelationId"></select>
                                             </div>
                                         </div>
-                                        <select class="form-select form-control" asp-items="Model.RelationList" asp-for="IndigentRelationId"></select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="input-group mb-3" style="margin-right: 1rem;">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-briefcase"></span>
+                                        <div class="col-lg-2">
+                                            <div class="input-group mb-3" style="margin-right: 1rem;">
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-briefcase"></span>
+                                                    </div>
+                                                </div>
+                                                <select class="form-select form-control" asp-items="Model.EmploymentStatusList" asp-for="IndigentEmploymentId"></select>
                                             </div>
                                         </div>
-                                        <select class="form-select form-control" asp-items="Model.EmploymentStatusList" asp-for="IndigentEmploymentId"></select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-1">
-                                    <div class="input-group mb-3" style="margin-right: 1rem;">
-                                        <button type="submit" asp-controller="Home" asp-action="AddDependent" class="btn btn-primary btn-block">Add</button>
-                                    </div>
-                                </div>
+                                        <div class="col-lg-1">
+                                            <div class="input-group mb-3" style="margin-right: 1rem;">
+                                                <button type="submit" asp-controller="Home" asp-action="AddDependent" class="btn btn-primary btn-block">Add</button>
+                                            </div>
+                                        </div>
 
-                            </div>
-                            <div class="row">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                First Name
-                                            </th>
-                                            <th>
-                                                Last Name
-                                            </th>
-                                            <th>
-                                                Education
-                                            </th>
-                                            <th>
-                                                Relation
-                                            </th>
-                                            <th>
-                                                Employment
-                                            </th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model?.Dependents?.Count>0)
-                                        {
-                                            @foreach (var item in Model?.Dependents)
-                                            {
+                                    </div>
+                                    <div class="row">
+                                        <table class="table">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.FirstName)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.LastName)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.EducationStatusId)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.DependentRelationId)
-                                                    </td>
-                                                    <td>
-                                                        @Html.DisplayFor(modelItem => item.EmploymentStatusId)
-                                                    </td>
-                                                    <td>
-                                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                                    </td>
+                                                    <th>
+                                                        First Name
+                                                    </th>
+                                                    <th>
+                                                        Last Name
+                                                    </th>
+                                                    <th>
+                                                        Education
+                                                    </th>
+                                                    <th>
+                                                        Relation
+                                                    </th>
+                                                    <th>
+                                                        Employment
+                                                    </th>
+                                                    <th></th>
                                                 </tr>
-                                            }
-                                        }
-                                    </tbody>
-                                </table>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    var tempData = TempData["Dependents"];
+                                                    if (tempData != null)
+                                                    {
+                                                        var dependents = JsonSerializer.Deserialize<List<DTOIndigentDependents>>(TempData["Dependents"].ToString());
+                                                        if (dependents.Count > 0)
+                                                        {
+                                                            foreach (var item in dependents)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        <label>@item.FirstName</label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <label>@item.LastName </label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <label>@item.EducationStatusName </label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <label>@item.DependentRelationName </label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <label>@item.EmploymentStatusName </label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a asp-action="Delete" asp-route-id="Dependents[i].Id">Delete</a>
+                                                                    </td>
+                                                                </tr>
+                                                            }
 
-                            </div>
-</div>
+                                                        }
+
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

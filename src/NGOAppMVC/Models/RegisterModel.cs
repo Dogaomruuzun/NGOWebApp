@@ -7,6 +7,11 @@ namespace NGOAppMVC.Models
 {
     public class RegisterModel
     {
+        public RegisterModel()
+        {
+            Dependents = new List<DTOIndigentDependents>();
+        }
+
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -63,6 +68,7 @@ namespace NGOAppMVC.Models
         public int? IndigentEducationId { get; set; }
         public int? IndigentRelationId { get; set; }
         public int? IndigentEmploymentId { get; set; }
+        public int? IndigentDonableId { get; set; }
 
 
         public List<DTOIndigentDependents> Dependents { get; set; }

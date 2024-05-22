@@ -10,6 +10,7 @@ using NGOAppMVC.DBModels;
 using NGOAppMVC.Models;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace NGOAppMVC.Controllers
 {
@@ -27,12 +28,9 @@ namespace NGOAppMVC.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(RegisterModel Model = null)
+        public IActionResult Index()
         {
-            if (Model != null)
-            {
-                return View(Model);
-            }
+            TempData.Clear();
             return View();
         }
 
@@ -45,72 +43,7 @@ namespace NGOAppMVC.Controllers
         public IActionResult Register()
         {
             var model = new RegisterModel(); ;
-            var educationStatusListDB = _context.LkpEducationalStatus.ToList();
-            model.EducationList= new();   
-            if (educationStatusListDB?.Count > 0)
-            {
-                model.EducationList.Add(new SelectListItem { Text = "Education", Value = "0" });
-                foreach (var item in educationStatusListDB)
-                {
-                    model.EducationList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
-                }
-            }
-
-            var professionListDB = _context.LkpProfession.ToList();
-            model.ProfessionList = new();
-            if (professionListDB?.Count > 0)
-            {
-                model.ProfessionList.Add(new SelectListItem { Text = "Profession", Value = "0" });
-                foreach (var item in professionListDB)
-                {
-                    model.ProfessionList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString()});
-                }
-            }
-
-            var regionsDB = _context.LkpRegions.ToList();
-            model.GeographicalList = new();
-            if (regionsDB?.Count > 0)
-            {
-                model.GeographicalList.Add(new SelectListItem { Text = "Region", Value = "0" });
-                foreach (var item in regionsDB)
-                {
-                    var geoName = item.City + " - " + item.District + " - " + item.Neighborhood;
-                    model.GeographicalList.Add(new SelectListItem { Text = geoName, Value = item.Id.ToString() });
-                }
-            }
-
-            var relationsDB = _context.LkbDependentRelation.ToList();
-            model.RelationList = new();
-            if (relationsDB?.Count > 0)
-            {
-                model.RelationList.Add(new SelectListItem { Text = "Relation", Value = "0" });
-                foreach (var item in relationsDB)
-                {
-                    model.RelationList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
-                }
-            }
-
-            var EmploymentsDB = _context.LkpEmploymentStatus.ToList();
-            model.EmploymentStatusList = new();
-            if (EmploymentsDB?.Count > 0)
-            {
-                model.EmploymentStatusList.Add(new SelectListItem { Text = "Employment", Value = "0" });
-                foreach (var item in EmploymentsDB)
-                {
-                    model.EmploymentStatusList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
-                }
-            }
-            var DonableItemsDB = _context.LkpDonableItem.ToList();
-            model.DonableItemList = new();
-            if (DonableItemsDB?.Count > 0)
-            {
-                model.DonableItemList.Add(new SelectListItem { Text = "Donable", Value = "0" });
-                foreach (var item in DonableItemsDB)
-                {
-                    model.DonableItemList.Add(new SelectListItem { Text = item.DonableTypeName, Value = item.Id.ToString() });
-                }
-            }
-
+            model = addListData(model);
 
 
             return View(model);
@@ -161,7 +94,37 @@ namespace NGOAppMVC.Controllers
                 };
                 _context.Add(volunteerInfo);
 
+                var indigentInfo = new Indigent
+                {
+                    MonthlyIncome = Model.IndigentMonthlyIncome,
+                    DonableItemId = Model.IndigentDonableId,
+                    MonthlyExpenditures = Model.IndigentMonthlyExpenditures,
+                    NgouserId = UserId,
+                    RegionId = Model.IndigentRegionId
+                };
+                _context.Add(indigentInfo);
 
+                if (TempData["Dependents"] != null)
+                {
+                    Model.Dependents = JsonSerializer.Deserialize<List<DTOIndigentDependents>>(TempData["Dependents"].ToString());
+                }
+
+                if (Model.Dependents != null)
+                {
+                    foreach (var item in Model.Dependents)
+                    {
+                        var indigentDependent = new IndigentDependents
+                        {
+                            FirstName = item.FirstName,
+                            LastName = item.LastName,
+                            EducationStatusId = item.EducationStatusId,
+                            EmploymentStatusId = item.EmploymentStatusId,
+                            DependentRelationId = item.DependentRelationId,
+                            NgouserId = UserId
+                        };
+                        _context.Add(indigentDependent);
+                    }
+                }
                 try
                 {
                     _context.SaveChangesAsync();
@@ -206,16 +169,18 @@ namespace NGOAppMVC.Controllers
         [HttpPost]
         public IActionResult AddDependent(RegisterModel Model)
         {
+            if (TempData["Dependents"] != null)
+            {
+                Model.Dependents = JsonSerializer.Deserialize<List<DTOIndigentDependents>>(TempData["Dependents"].ToString());
+            }
             var newDependent = new DTOIndigentDependents
             {
                 FirstName = Model.IndigentFirstName,
                 LastName = Model.IndigentLastName,
                 EducationStatusId = Model.IndigentEducationId,
                 EducationStatusName = _context.LkpEducationalStatus.Where(e => e.Id == Model.IndigentEducationId).Select(s => s.Name).FirstOrDefault(),
-
                 EmploymentStatusId = Model.IndigentEmploymentId,
                 EmploymentStatusName = _context.LkpEmploymentStatus.Where(e => e.Id == Model.IndigentEmploymentId).Select(s => s.Name).FirstOrDefault(),
-
                 DependentRelationId = Model.IndigentRelationId,
                 DependentRelationName = _context.LkbDependentRelation.Where(e => e.Id == Model.IndigentRelationId).Select(s => s.Name).FirstOrDefault()
             };
@@ -224,7 +189,9 @@ namespace NGOAppMVC.Controllers
                 Model.Dependents = new();
             }
             Model.Dependents.Add(newDependent);
-
+            TempData["Dependents"] = JsonSerializer.Serialize(Model.Dependents);
+            TempData.Keep("Dependents");
+            Model = addListData(Model);
             return View("Register",Model);
         }
 
@@ -233,6 +200,76 @@ namespace NGOAppMVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private RegisterModel addListData(RegisterModel model)
+        {
+            var educationStatusListDB = _context.LkpEducationalStatus.ToList();
+            model.EducationList = new();
+            if (educationStatusListDB?.Count > 0)
+            {
+                model.EducationList.Add(new SelectListItem { Text = "Education", Value = "0" });
+                foreach (var item in educationStatusListDB)
+                {
+                    model.EducationList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+                }
+            }
+
+            var professionListDB = _context.LkpProfession.ToList();
+            model.ProfessionList = new();
+            if (professionListDB?.Count > 0)
+            {
+                model.ProfessionList.Add(new SelectListItem { Text = "Profession", Value = "0" });
+                foreach (var item in professionListDB)
+                {
+                    model.ProfessionList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+                }
+            }
+
+            var regionsDB = _context.LkpRegions.ToList();
+            model.GeographicalList = new();
+            if (regionsDB?.Count > 0)
+            {
+                model.GeographicalList.Add(new SelectListItem { Text = "Region", Value = "0" });
+                foreach (var item in regionsDB)
+                {
+                    var geoName = item.City + " - " + item.District + " - " + item.Neighborhood;
+                    model.GeographicalList.Add(new SelectListItem { Text = geoName, Value = item.Id.ToString() });
+                }
+            }
+
+            var relationsDB = _context.LkbDependentRelation.ToList();
+            model.RelationList = new();
+            if (relationsDB?.Count > 0)
+            {
+                model.RelationList.Add(new SelectListItem { Text = "Relation", Value = "0" });
+                foreach (var item in relationsDB)
+                {
+                    model.RelationList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+                }
+            }
+
+            var EmploymentsDB = _context.LkpEmploymentStatus.ToList();
+            model.EmploymentStatusList = new();
+            if (EmploymentsDB?.Count > 0)
+            {
+                model.EmploymentStatusList.Add(new SelectListItem { Text = "Employment", Value = "0" });
+                foreach (var item in EmploymentsDB)
+                {
+                    model.EmploymentStatusList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+                }
+            }
+            var DonableItemsDB = _context.LkpDonableItem.ToList();
+            model.DonableItemList = new();
+            if (DonableItemsDB?.Count > 0)
+            {
+                model.DonableItemList.Add(new SelectListItem { Text = "Donable", Value = "0" });
+                foreach (var item in DonableItemsDB)
+                {
+                    model.DonableItemList.Add(new SelectListItem { Text = item.DonableTypeName, Value = item.Id.ToString() });
+                }
+            }
+            return model;
         }
     }
 }
