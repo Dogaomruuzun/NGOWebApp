@@ -84,7 +84,19 @@ namespace NGOAppMVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["ApprovementStatusId"] = new SelectList(_context.LkpApprovementStatus, "Id", "Id", ngouser.ApprovementStatusId);
+            var ApprovementStatusDB = _context.LkpApprovementStatus.ToList();
+            List<SelectListItem> educationList = new();
+            
+           if (ApprovementStatusDB?.Count > 0)
+            {
+                foreach (var item in ApprovementStatusDB)
+                {
+                    educationList.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+                }
+            }
+
+
+            ViewData["ApprovementStatusList"] = educationList;
             return View(ngouser);
         }
 
@@ -93,7 +105,7 @@ namespace NGOAppMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,FirstName,LastName,Email,Age,Gender,Password,RegisteredDate,ApprovementStatusId,PhoneNumber")] Ngouser ngouser)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,FirstName,LastName,Email,Age,Gender,PasswordHash, RegisteredDate,ApprovementStatusId,PhoneNumber")] Ngouser ngouser)
         {
             if (id != ngouser.Id)
             {
