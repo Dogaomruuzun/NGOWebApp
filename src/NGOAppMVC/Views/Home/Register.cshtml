@@ -30,9 +30,24 @@
                 <a class="h5">Aid Operations Management System </a>
             </div>
             <p class="login-box-msg">Register a new membership</p>
-
             <form method="post">
+
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card-body">
+                    <div class="card card-primary">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                        <span asp-validation-for="VolunteerRegionId" class="text-danger"></span>
+                        <span asp-validation-for="VolunteerAvailableDaysCount" class="text-danger"></span>
+                        <span asp-validation-for="VolunteerAvailableHoursCount" class="text-danger"></span>
+                    </div>
+                </div>
                 @Html.HiddenFor(model => Model.Dependents)
                 <div class="card-body">
                     <div class="card card-primary">
@@ -125,7 +140,9 @@
                     <br />
                     <div class="card card-success">
                         <div class="card-header">
-                            <h3 class="card-title">Volunteer Info</h3>
+                            <div class="custom-control custom-checkbox" style="margin-right: 1rem;">
+                                <input type="checkbox" asp-for="IAmaVolunteer"/>  I am a Volunteer
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row" style="margin-left: 5px; margin-top: 10px;">
@@ -140,7 +157,7 @@
                                             <select class="form-select form-control" asp-items="Model.ProfessionList" asp-for="VolunteerProfessionId"></select>
                                         </div>
                                         <div class="input-group mb-3" style="margin-right: 1rem;">
-                                            <input type="number" class="form-control" placeholder="Annual Income">
+                                            <input asp-for="@Model.VolunteerAnnualIncome" type="number" class="form-control" placeholder="Annual Income" />
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-solid fa-money-bill"></span>
@@ -199,7 +216,9 @@
                     <br />
                     <div class="card card-warning">
                         <div class="card-header">
-                            <h3 class="card-title">Indigent Person Info</h3>
+                            <div class="custom-control custom-checkbox" style="margin-right: 1rem;">
+                                <input type="checkbox" asp-for="IAmanIndigent" />  I am an Indigent 
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row" style="margin-left: 5px; margin-top: 10px;">
@@ -232,7 +251,7 @@
                                                 <span class="fas fa-bell"></span>
                                             </div>
                                         </div>
-                                        <select class="form-select form-control" asp-items="Model.DonableItemList" asp-for="IndigentRequestedDonableItemId"></select>
+                                        <select class="form-select form-control" asp-items="Model.DonableItemList" asp-for="IndigentDonableId"></select>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -383,14 +402,6 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-4">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                    <label for="agreeTerms">
-                                        I agree to the <a href="#">terms</a>
-                                    </label>
-                                </div>
-                            </div>
                             <!-- /.col -->
                             <div class="col-2">
                                 <button id="register-submit" asp-controller="Home" asp-action="Register" type="submit" class="btn btn-primary btn-block">Register</button>
@@ -414,7 +425,9 @@
     <script src="~/adminlte/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="~/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
+    <!-- Bootstrap 4 -->
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/adminlte/dist/js/adminlte.min.js"></script>
 </body>
 </html>

@@ -173,7 +173,10 @@
                         if (User.Identity?.IsAuthenticated ?? false)
                         {
                             <div class="info">
-                                <a href="#" class="d-block">@User.Identity.Name</a>
+                                <div>
+                                    <a asp-area="Identity" asp-controller="Account"
+                                       asp-action="Logout" class="d-block">@User.Identity.Name</a>
+                                </div>
                             </div>
                         }
                         else

@@ -37,23 +37,48 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 app.MapGet("/pagelist", (IActionDescriptorCollectionProvider provider) =>
 {
-    var pages = provider.ActionDescriptors.Items
+    if (app.Environment.IsDevelopment())
+    {
+        var razorPages = provider.ActionDescriptors.Items
         .Where(ad => ad is PageActionDescriptor)
         .Select(ad => ((PageActionDescriptor)ad).ViewEnginePath)
         .ToList();
 
-    var response = "<h2>List of Pages</h2><ul>";
-    foreach (var page in pages)
-    {
-        response += $"<li><a href='{page}'>{page}</a></li>";
-    }
-    response += "</ul>";
+        var response = "<h2>List of Pages</h2><ul>";
+        foreach (var page in razorPages)
+        {
+            response += $"<li><a href='{page}'>{page}</a></li>";
+        }
+        response += "</ul>";
 
-    return Results.Content(response, "text/html");
+        var MVCViews = provider.ActionDescriptors.Items
+            .Where(ad => ad is not PageActionDescriptor)
+            .Select(ad => (ad).DisplayName)
+            .ToList();
+
+        foreach (var view in MVCViews)
+        {
+            response += $"<li><a href='{view}'>{view}</a></li>";
+        }
+        response += "</ul>";
+
+        return Results.Content(response, "text/html");
+    }
+    else
+    {
+        return Results.NotFound();
+    }
 });
 app.Run();

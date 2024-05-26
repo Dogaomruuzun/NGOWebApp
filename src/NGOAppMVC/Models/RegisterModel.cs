@@ -12,7 +12,7 @@ namespace NGOAppMVC.Models
             Dependents = new List<DTOIndigentDependents>();
         }
 
-        [Required]
+        [Required(ErrorMessage = "First name must be filled")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
@@ -44,10 +44,13 @@ namespace NGOAppMVC.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-
         public string PhoneNumber { get; set; }
 
+
+        public bool IAmaVolunteer { get; set; }
+        public bool IAmanIndigent { get; set; }
+
+        [Range(0, 150, ErrorMessage = "Please enter valid Volunteer Region")]
         public long? VolunteerRegionId { get; set; }
         public long? VolunteerProfessionId { get; set; }
         public long? VolunteerAnnualIncome { get; set; }

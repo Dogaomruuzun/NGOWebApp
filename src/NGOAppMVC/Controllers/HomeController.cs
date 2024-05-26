@@ -64,12 +64,11 @@ namespace NGOAppMVC.Controllers
                 var passwordHasher = new PasswordHasher();
                 string hashedPassword = passwordHasher.HashPassword(Model.Password);
 
-                var UserId = _context.Ngouser.Max(u => u.Id) + 1;
+                var userId = _context.Ngouser.Max(u => u.Id) + 1;
 
-                var AllUsers = _context.Ngouser.ToList();
                 var ngouser = new Ngouser
                 {
-                    Id = UserId,
+                    Id = userId,
                     FirstName = Model.FirstName,
                     LastName = Model.LastName,
                     Age = Model.Age,
@@ -82,47 +81,53 @@ namespace NGOAppMVC.Controllers
                 };
                 _context.Add(ngouser);
 
-                var volunteerInfo = new Volunteer
+                if (Model.IAmaVolunteer)
                 {
-                    AnnualIncome = Model.VolunteerAnnualIncome,
-                    AvailableDaysCount = Model.VolunteerAvailableDaysCount,
-                    AvailableHoursCount = Model.VolunteerAvailableHoursCount,
-                    CanHandleOwnTransportation = (bool)Model.VolunteerCanHandleOwnTransportation ? 1 : 0,
-                    NgouserId = UserId,
-                    ProfessionId = Model.VolunteerProfessionId,
-                    RegionId = Model.VolunteerRegionId
-                };
-                _context.Add(volunteerInfo);
-
-                var indigentInfo = new Indigent
-                {
-                    MonthlyIncome = Model.IndigentMonthlyIncome,
-                    DonableItemId = Model.IndigentDonableId,
-                    MonthlyExpenditures = Model.IndigentMonthlyExpenditures,
-                    NgouserId = UserId,
-                    RegionId = Model.IndigentRegionId
-                };
-                _context.Add(indigentInfo);
-
-                if (TempData["Dependents"] != null)
-                {
-                    Model.Dependents = JsonSerializer.Deserialize<List<DTOIndigentDependents>>(TempData["Dependents"].ToString());
+                    var volunteerInfo = new Volunteer
+                    {
+                        AnnualIncome = Model.VolunteerAnnualIncome,
+                        AvailableDaysCount = Model.VolunteerAvailableDaysCount,
+                        AvailableHoursCount = Model.VolunteerAvailableHoursCount,
+                        CanHandleOwnTransportation = (bool)Model.VolunteerCanHandleOwnTransportation ? 1 : 0,
+                        NgouserId = userId,
+                        ProfessionId = Model.VolunteerProfessionId,
+                        RegionId = Model.VolunteerRegionId
+                    };
+                    _context.Add(volunteerInfo);
                 }
 
-                if (Model.Dependents != null)
+                if (Model.IAmanIndigent)
                 {
-                    foreach (var item in Model.Dependents)
+                    var indigentInfo = new Indigent
                     {
-                        var indigentDependent = new IndigentDependents
+                        MonthlyIncome = Model.IndigentMonthlyIncome,
+                        DonableItemId = Model.IndigentDonableId,
+                        MonthlyExpenditures = Model.IndigentMonthlyExpenditures,
+                        NgouserId = userId,
+                        RegionId = Model.IndigentRegionId
+                    };
+                    _context.Add(indigentInfo);
+
+                    if (TempData["Dependents"] != null)
+                    {
+                        Model.Dependents = JsonSerializer.Deserialize<List<DTOIndigentDependents>>(TempData["Dependents"].ToString());
+                    }
+
+                    if (Model.Dependents != null)
+                    {
+                        foreach (var item in Model.Dependents)
                         {
-                            FirstName = item.FirstName,
-                            LastName = item.LastName,
-                            EducationStatusId = item.EducationStatusId,
-                            EmploymentStatusId = item.EmploymentStatusId,
-                            DependentRelationId = item.DependentRelationId,
-                            NgouserId = UserId
-                        };
-                        _context.Add(indigentDependent);
+                            var indigentDependent = new IndigentDependents
+                            {
+                                FirstName = item.FirstName,
+                                LastName = item.LastName,
+                                EducationStatusId = item.EducationStatusId,
+                                EmploymentStatusId = item.EmploymentStatusId,
+                                DependentRelationId = item.DependentRelationId,
+                                NgouserId = userId
+                            };
+                            _context.Add(indigentDependent);
+                        }
                     }
                 }
                 try
@@ -130,32 +135,13 @@ namespace NGOAppMVC.Controllers
                     _context.SaveChangesAsync();
                     return RedirectToAction("Index", "Home");
                 }
-                catch (DbUpdateException ex)
-                {
-                    // Handle database update exceptions
-                    ModelState.AddModelError("", "An error occurred while updating the database. Please try again.");
-                    // Log the error (uncomment ex variable name and write a log.)
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    // Handle validation exceptions
-                    foreach (var validationErrors in ex.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            ModelState.AddModelError("", validationError.ErrorMessage);
-                        }
-                    }
-                    // Log the error (uncomment ex variable name and write a log.)
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
                 catch (Exception ex)
                 {
                     // Handle other exceptions
                     ModelState.AddModelError("", "An unexpected error occurred. Please try again.");
                     // Log the error (uncomment ex variable name and write a log.)
                     System.Diagnostics.Debug.WriteLine(ex);
+                    return View(Model);
                 }
                 return RedirectToAction(nameof(Index));
             }
