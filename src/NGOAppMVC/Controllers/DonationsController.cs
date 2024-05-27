@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NGOAppMVC.DBModels;
+using NGOAppMVC.Models;
 
 namespace NGOAppMVC.Controllers
 {
@@ -24,7 +25,29 @@ namespace NGOAppMVC.Controllers
         public async Task<IActionResult> Index()
         {
             var dCodeNGOdataNGOsqliteContext = _context.Donation.Include(d => d.Ngouser).Include(d => d.Region);
-            return View(await dCodeNGOdataNGOsqliteContext.ToListAsync());
+            var donationsDB = await dCodeNGOdataNGOsqliteContext.ToListAsync();
+            var model = new List<DTODonations>();
+            foreach (var item in donationsDB)
+            {
+                var warehousestatus = _context.WarehouseAssets.Where(x => x.DonationId == item.Id).FirstOrDefault();
+
+                var user = _context.Ngouser.Where(x => x.Id == item.NgouserId).FirstOrDefault();
+                var dto = new DTODonations
+                {
+                    Id = item.Id,
+                    NGOUserName = user.FirstName + " " + user.LastName,
+                    DonationDate = item.DonationDate,
+                    DonableItemId = item.DonableItemId,
+                    DonableItemAmount = item.DonableItemAmount,
+                    RegionId = item.RegionId,
+                    DonableItem = _context.LkpDonableItem.Where(x => x.Id == item.DonableItemId).FirstOrDefault().DonableTypeName,
+                    Region = _context.LkpRegions.Where(x => x.Id == item.RegionId).FirstOrDefault().City + " - " + _context.LkpRegions.Where(x => x.Id == item.RegionId).FirstOrDefault().District + " - " + _context.LkpRegions.Where(x => x.Id == item.RegionId).FirstOrDefault().Neighborhood,
+                    Status = warehousestatus == null ? "Depoya Alınmadı" : "Depoya Alındı"
+                };
+                model.Add(dto);
+            }
+
+            return View(model);
         }
 
         // GET: Donations/Details/5

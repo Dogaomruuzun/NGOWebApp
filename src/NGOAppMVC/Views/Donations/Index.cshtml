@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NGOAppMVC.DBModels.Donation>
+﻿@model IEnumerable<DTODonations>
 
 @{
     ViewData["Title"] = "Index";
@@ -17,16 +17,19 @@
                 @Html.DisplayNameFor(model => model.DonationDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DonableItemId)
+                @Html.DisplayNameFor(model => model.DonableItem)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DonableItemAmount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ngouser)
+                @Html.DisplayNameFor(model => model.NGOUserName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th></th>
         </tr>
@@ -38,18 +41,21 @@
                 @Html.DisplayFor(modelItem => item.DonationDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DonableItemId)
+                @Html.DisplayFor(modelItem => item.DonableItem)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DonableItemAmount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Ngouser.Email)
+                @Html.DisplayFor(modelItem => item.NGOUserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Region.Id)
+                @Html.DisplayFor(modelItem => item.Region)
             </td>
-            <td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
