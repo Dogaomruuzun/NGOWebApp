@@ -49,6 +49,33 @@ namespace NGOAppMVC.Controllers
 
             return View(model);
         }
+        public async Task<IActionResult> DepoyaGelecek()
+        {
+            var dCodeNGOdataNGOsqliteContext = _context.Donation.FromSqlRaw("select Donation.* from Donation left outer join  WarehouseAssets on Donation.Id = WarehouseAssets.DonationId where WarehouseAssets.DonationId is null");
+            var donationsDB = await dCodeNGOdataNGOsqliteContext.ToListAsync();
+            var model = new List<DTODonations>();
+            foreach (var item in donationsDB)
+            {
+                var warehousestatus = _context.WarehouseAssets.Where(x => x.DonationId == item.Id).FirstOrDefault();
+
+                var user = _context.Ngouser.Where(x => x.Id == item.NgouserId).FirstOrDefault();
+                var dto = new DTODonations
+                {
+                    Id = item.Id,
+                    NGOUserName = user.FirstName + " " + user.LastName,
+                    DonationDate = item.DonationDate,
+                    DonableItemId = item.DonableItemId,
+                    DonableItemAmount = item.DonableItemAmount,
+                    RegionId = item.RegionId,
+                    DonableItem = _context.LkpDonableItem.Where(x => x.Id == item.DonableItemId).FirstOrDefault().DonableTypeName,
+                    Region = _context.LkpRegions.Where(x => x.Id == item.RegionId).FirstOrDefault().City + " - " + _context.LkpRegions.Where(x => x.Id == item.RegionId).FirstOrDefault().District + " - " + _context.LkpRegions.Where(x => x.Id == item.RegionId).FirstOrDefault().Neighborhood,
+                    Status = warehousestatus == null ? "Depoya Alınmadı" : "Depoya Alındı"
+                };
+                model.Add(dto);
+            }
+
+            return View(model);
+        }
 
         // GET: Donations/Details/5
         public async Task<IActionResult> Details(long? id)

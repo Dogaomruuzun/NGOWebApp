@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Tüm Bağışlar</h1>
+<h1>Depoya Alınması Gereken Bağışlar</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -56,9 +56,7 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-controller="Warehouse" asp-action="DepoyaAlma" asp-route-id="@item.Id">Depoya Al</a> |
             </td>
         </tr>
 }

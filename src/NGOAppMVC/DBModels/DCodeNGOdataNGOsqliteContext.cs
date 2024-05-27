@@ -213,7 +213,7 @@ namespace NGOAppMVC.DBModels
 
             modelBuilder.Entity<WarehouseAssets>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(z=>z.Id);
 
                 entity.HasOne(d => d.Donation)
                     .WithMany()
