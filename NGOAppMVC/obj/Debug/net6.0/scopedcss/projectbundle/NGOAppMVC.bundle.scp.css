@@ -1,0 +1,49 @@
+/* _content/NGOAppMVC/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-yfqa6o4xki] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-yfqa6o4xki] {
+  color: #0077cc;
+}
+
+.btn-primary[b-yfqa6o4xki] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-yfqa6o4xki], .nav-pills .show > .nav-link[b-yfqa6o4xki] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-yfqa6o4xki] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-yfqa6o4xki] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-yfqa6o4xki] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-yfqa6o4xki] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-yfqa6o4xki] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}

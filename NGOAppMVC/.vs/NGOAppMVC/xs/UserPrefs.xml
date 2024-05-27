@@ -1,0 +1,10 @@
+﻿<Properties StartupConfiguration="{429799D0-AA19-4019-B4F8-DA6B35E26FA7}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.NGOAppMVC PreferredExecutionTarget="/Applications/Google Chrome.app" />
+</Properties>
