@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f2dd0d5b-124f-4b2f-a957-0f5f3573eb5b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../src/NGOAppMVC/App_Data/NGO.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/../src/NGOAppMVC/App_Data/NGO.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/NGOAppMVC/Models/DTOLkbDependentRelation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../src/NGOAppMVC/Models/DTOLkbDependentRelation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/NGOAppMVC/NGOAppMVC.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../src/NGOAppMVC/NGOAppMVC.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/NGOAppMVC/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../src/NGOAppMVC/Properties/launchSettings.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2gKoMFd64rvDOwIHY0ucq8R5EHr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/doga&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$USER_HOME$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+</project>
